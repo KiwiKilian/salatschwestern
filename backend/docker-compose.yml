@@ -1,0 +1,25 @@
+name: salatschwestern-backend
+
+services:
+  postgres:
+    image: postgres:18.6-alpine
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      LANG: de_AT.utf8
+      TZ: Europe/Vienna
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    ports:
+      - 5432:5432
+  adminer:
+    depends_on:
+      - postgres
+    image: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+      ADMINER_DESIGN: flat
+    ports:
+      - 8090:8080
+volumes:
+  postgres-data:

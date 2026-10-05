@@ -1,0 +1,8 @@
+packages:
+  - backend
+  - frontend
+allowBuilds:
+  '@nestjs/core': false
+  '@parcel/watcher': true
+  '@scarf/scarf': false
+  protobufjs: false
