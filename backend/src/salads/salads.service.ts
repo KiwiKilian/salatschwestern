@@ -1,12 +1,12 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ForbiddenException, Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { NotificationService } from '@/notification/notification.service';
-import { CreateSaladDto } from '@/salads/dto/create-salad.dto';
-import { UpdateSaladDto } from '@/salads/dto/update-salad.dto';
-import { Salad } from '@/salads/entities/salad.entity';
-import { User } from '@/users/entities/user.entity';
+import { NotificationService } from "@/notification/notification.service";
+import { CreateSaladDto } from "@/salads/dto/create-salad.dto";
+import { UpdateSaladDto } from "@/salads/dto/update-salad.dto";
+import { Salad } from "@/salads/entities/salad.entity";
+import { User } from "@/users/entities/user.entity";
 
 @Injectable()
 export class SaladsService {
@@ -33,7 +33,10 @@ export class SaladsService {
   }
 
   findOne(id: string): Promise<Salad> {
-    return this.saladsRepository.findOneOrFail({ where: { id }, relations: { user: true, billingPeriod: true } });
+    return this.saladsRepository.findOneOrFail({
+      where: { id },
+      relations: { user: true, billingPeriod: true },
+    });
   }
 
   async update(id: string, updateSaladDto: UpdateSaladDto): Promise<Salad> {

@@ -1,8 +1,8 @@
-import { PrimaryGeneratedColumn } from 'typeorm';
+import { PrimaryGeneratedColumn } from "typeorm";
 
-import { TimestampEntity } from '@/base-entities/timestamp-entity.entity';
+import { TimestampEntity } from "@/base-entities/timestamp-entity.entity";
 
 export abstract class BaseEntity extends TimestampEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 }

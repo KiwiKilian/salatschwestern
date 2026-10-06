@@ -1,3 +1,5 @@
-import { CurrentBillingPeriodService } from '@/modules/api';
+import { CurrentBillingPeriodService } from "@/modules/api";
 
-export type CloseBillingPeriodParameters = Parameters<typeof CurrentBillingPeriodService.close>[0]['requestBody'];
+export type CloseBillingPeriodParameters = Parameters<
+  typeof CurrentBillingPeriodService.close
+>[0]["requestBody"];

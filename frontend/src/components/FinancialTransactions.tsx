@@ -1,11 +1,11 @@
-import { Chip, ColorPaletteProp, Sheet, Table, Typography } from '@mui/joy';
-import dayjs from 'dayjs';
+import { Chip, ColorPaletteProp, Sheet, Table, Typography } from "@mui/joy";
+import dayjs from "dayjs";
 
-import { Amount } from '@/components/Amount';
-import { ButtonLink } from '@/components/ButtonLink';
-import { FinancialTransactionGuard } from '@/modules/FinancialTransactionGuard';
-import { FinancialTransactionType, Salad } from '@/modules/api';
-import { FinancialTransaction } from '@/types/FinancialTransaction';
+import { Amount } from "@/components/Amount";
+import { ButtonLink } from "@/components/ButtonLink";
+import { FinancialTransactionGuard } from "@/modules/FinancialTransactionGuard";
+import { FinancialTransactionType, Salad } from "@/modules/api";
+import { FinancialTransaction } from "@/types/FinancialTransaction";
 
 type TransactionsProps = { transactions?: (FinancialTransaction | Salad)[]; edit?: boolean };
 
@@ -28,49 +28,52 @@ export function FinancialTransactions({ transactions = [], edit }: TransactionsP
         <tbody>
           {transactions.length === 0 && (
             <tr>
-              <td colSpan={4} style={{ textAlign: 'center' }}>
-                Keine Transaktionen vorhanden<span style={{ fontSize: '0.2rem' }}>🥗🥗🥗</span>
+              <td colSpan={4} style={{ textAlign: "center" }}>
+                Keine Transaktionen vorhanden<span style={{ fontSize: "0.2rem" }}>🥗🥗🥗</span>
               </td>
             </tr>
           )}
           {transactions.map((transaction) => {
-            const isDeposit = 'financialTransactionType' in transaction && transaction.amount >= 0;
+            const isDeposit = "financialTransactionType" in transaction && transaction.amount >= 0;
 
             return (
               <tr key={transaction.id}>
                 <td>
-                  <Typography>{dayjs(transaction.date).format('DD.MM.YYYY')}</Typography>
+                  <Typography>{dayjs(transaction.date).format("DD.MM.YYYY")}</Typography>
                 </td>
                 <td>
                   <Chip
                     variant="soft"
                     startDecorator={
-                      'financialTransactionType' in transaction
+                      "financialTransactionType" in transaction
                         ? {
-                            [FinancialTransactionType.ACCOUNT_BALANCE]: isDeposit ? '📈' : '📉',
-                            [FinancialTransactionType.GROCERY]: '🛒',
-                            [FinancialTransactionType.USER_BALANCE]: isDeposit ? '📈' : '📉',
+                            [FinancialTransactionType.ACCOUNT_BALANCE]: isDeposit ? "📈" : "📉",
+                            [FinancialTransactionType.GROCERY]: "🛒",
+                            [FinancialTransactionType.USER_BALANCE]: isDeposit ? "📈" : "📉",
                           }[transaction.financialTransactionType]
-                        : '🥗'
+                        : "🥗"
                     }
-                    color={(isDeposit ? 'success' : 'danger') as ColorPaletteProp}
+                    color={(isDeposit ? "success" : "danger") as ColorPaletteProp}
                   >
-                    {'financialTransactionType' in transaction ? (
+                    {"financialTransactionType" in transaction ? (
                       <>
-                        {FinancialTransactionGuard.isAccountBalance(transaction) && 'Kassenkorrektur'}
-                        {FinancialTransactionGuard.isGrocery(transaction) && 'Einkauf'}
+                        {FinancialTransactionGuard.isAccountBalance(transaction) &&
+                          "Kassenkorrektur"}
+                        {FinancialTransactionGuard.isGrocery(transaction) && "Einkauf"}
                         {FinancialTransactionGuard.isUserBalance(transaction) &&
-                          (isDeposit ? 'Einzahlung' : 'Auszahlung')}
+                          (isDeposit ? "Einzahlung" : "Auszahlung")}
                       </>
                     ) : (
-                      'Salat'
+                      "Salat"
                     )}
                   </Chip>
                 </td>
                 <td>
-                  {'financialTransactionType' in transaction ? (
+                  {"financialTransactionType" in transaction ? (
                     <>
-                      {FinancialTransactionGuard.isAccountBalance(transaction) && <i>{transaction.subject}</i>}
+                      {FinancialTransactionGuard.isAccountBalance(transaction) && (
+                        <i>{transaction.subject}</i>
+                      )}
                       {FinancialTransactionGuard.isGrocery(transaction) &&
                         transaction.users?.map((user) => (
                           <Chip key={user.id} sx={{ marginRight: 0.5 }}>
@@ -89,7 +92,7 @@ export function FinancialTransactions({ transactions = [], edit }: TransactionsP
                 <td>
                   <Amount
                     value={
-                      'financialTransactionType' in transaction
+                      "financialTransactionType" in transaction
                         ? transaction.amount
                         : -1 * (transaction.billingPeriod?.saladPrice || 0)
                     }
@@ -97,8 +100,8 @@ export function FinancialTransactions({ transactions = [], edit }: TransactionsP
                 </td>
 
                 {edit && (
-                  <td style={{ width: '1%', whiteSpace: 'nowrap' }}>
-                    {'financialTransactionType' in transaction &&
+                  <td style={{ width: "1%", whiteSpace: "nowrap" }}>
+                    {"financialTransactionType" in transaction &&
                       FinancialTransactionGuard.isGrocery(transaction) &&
                       !transaction.billingPeriod && (
                         <ButtonLink

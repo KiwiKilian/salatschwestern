@@ -7,9 +7,9 @@ export type CreateAccountBalanceDto = {
 };
 
 export enum FinancialTransactionType {
-  ACCOUNT_BALANCE = 'ACCOUNT_BALANCE',
-  GROCERY = 'GROCERY',
-  USER_BALANCE = 'USER_BALANCE',
+  ACCOUNT_BALANCE = "ACCOUNT_BALANCE",
+  GROCERY = "GROCERY",
+  USER_BALANCE = "USER_BALANCE",
 }
 
 export type AccountBalance = {
@@ -145,7 +145,7 @@ export type UpdateUserDto = {
 };
 
 export type $OpenApiTs = {
-  '/api/v1/health': {
+  "/api/v1/health": {
     get: {
       res: {
         /**
@@ -178,7 +178,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/account-balances': {
+  "/api/v1/account-balances": {
     post: {
       req: {
         requestBody: CreateAccountBalanceDto;
@@ -193,7 +193,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/account-balances/{id}': {
+  "/api/v1/account-balances/{id}": {
     get: {
       req: {
         id: string;
@@ -220,14 +220,14 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/balances/account': {
+  "/api/v1/balances/account": {
     get: {
       res: {
         200: AccountBalanceDto;
       };
     };
   };
-  '/api/v1/balances/users': {
+  "/api/v1/balances/users": {
     get: {
       req: {
         active?: boolean;
@@ -237,7 +237,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/balances/users/{userId}': {
+  "/api/v1/balances/users/{userId}": {
     get: {
       req: {
         userId: string;
@@ -247,14 +247,14 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/billing-periods': {
+  "/api/v1/billing-periods": {
     get: {
       res: {
         200: Array<BillingPeriod>;
       };
     };
   };
-  '/api/v1/billing-periods/{id}': {
+  "/api/v1/billing-periods/{id}": {
     get: {
       req: {
         id: string;
@@ -264,7 +264,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/current-billing-period': {
+  "/api/v1/current-billing-period": {
     get: {
       req: {
         until?: string;
@@ -282,14 +282,14 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/financial-transactions': {
+  "/api/v1/financial-transactions": {
     get: {
       res: {
         200: Array<AccountBalance | UserBalance | Grocery>;
       };
     };
   };
-  '/api/v1/groceries': {
+  "/api/v1/groceries": {
     post: {
       req: {
         requestBody: CreateGroceryDto;
@@ -304,7 +304,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/groceries/{id}': {
+  "/api/v1/groceries/{id}": {
     get: {
       req: {
         id: string;
@@ -331,7 +331,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/salads': {
+  "/api/v1/salads": {
     post: {
       req: {
         requestBody: CreateSaladDto;
@@ -346,7 +346,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/salads/{id}': {
+  "/api/v1/salads/{id}": {
     get: {
       req: {
         id: string;
@@ -373,7 +373,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/user-balances': {
+  "/api/v1/user-balances": {
     post: {
       req: {
         requestBody: CreateUserBalanceDto;
@@ -388,7 +388,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/user-balances/{id}': {
+  "/api/v1/user-balances/{id}": {
     get: {
       req: {
         id: string;
@@ -415,7 +415,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/users': {
+  "/api/v1/users": {
     post: {
       req: {
         requestBody: CreateUserDto;
@@ -433,7 +433,7 @@ export type $OpenApiTs = {
       };
     };
   };
-  '/api/v1/users/{id}': {
+  "/api/v1/users/{id}": {
     get: {
       req: {
         id: string;

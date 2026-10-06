@@ -1,20 +1,29 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, Index, JoinTable, ManyToMany, OneToMany } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+} from "typeorm";
 
-import { BaseEntity } from '@/base-entities/base-entity.entity';
-import { Grocery } from '@/groceries/entities/grocery.entity';
-import { Salad } from '@/salads/entities/salad.entity';
-import { UserBalance } from '@/user-balances/entities/user-balance.entity';
+import { BaseEntity } from "@/base-entities/base-entity.entity";
+import { Grocery } from "@/groceries/entities/grocery.entity";
+import { Salad } from "@/salads/entities/salad.entity";
+import { UserBalance } from "@/user-balances/entities/user-balance.entity";
 
 @Entity()
 export class User extends BaseEntity {
   @Index({ unique: true })
-  @Column('varchar')
+  @Column("varchar")
   email: string;
 
-  @Column('varchar')
+  @Column("varchar")
   displayName: string;
 
-  @Column('boolean', { default: true })
+  @Column("boolean", { default: true })
   active: boolean;
 
   @OneToMany(() => Salad, (salad) => salad.user)

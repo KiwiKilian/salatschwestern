@@ -1,20 +1,20 @@
-import { ToSubOptions } from '@tanstack/react-router';
+import { ToSubOptions } from "@tanstack/react-router";
 
 export const HEADER_ITEMS: ({ label: string } & ToSubOptions)[] = [
   {
-    label: '🥗 Salate',
-    to: '/',
+    label: "🥗 Salate",
+    to: "/",
   },
   {
-    label: '🤑 Abrechnungsperiode',
-    to: '/abrechnungsperiode',
+    label: "🤑 Abrechnungsperiode",
+    to: "/abrechnungsperiode",
   },
   {
-    label: '👤 Schwestern',
-    to: '/schwestern',
+    label: "👤 Schwestern",
+    to: "/schwestern",
   },
   {
-    label: '💰 Kassenstand',
-    to: '/kassenstand',
+    label: "💰 Kassenstand",
+    to: "/kassenstand",
   },
 ];

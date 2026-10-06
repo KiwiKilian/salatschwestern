@@ -1,13 +1,13 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { createLazyFileRoute, useNavigate, useParams } from '@tanstack/react-router';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createLazyFileRoute, useNavigate, useParams } from "@tanstack/react-router";
 
-import { GroceryForm } from '@/components/groceries/GroceryForm';
-import { QueryKeys } from '@/modules/QueryKeys';
-import { GroceriesService, UpdateGroceryDto } from '@/modules/api';
-import { queryClient } from '@/setup/queryClient';
+import { GroceryForm } from "@/components/groceries/GroceryForm";
+import { QueryKeys } from "@/modules/QueryKeys";
+import { GroceriesService, UpdateGroceryDto } from "@/modules/api";
+import { queryClient } from "@/setup/queryClient";
 
 function UpdateGroceryPage() {
-  const { groceryId } = useParams({ from: '/einkaeufe/$groceryId' });
+  const { groceryId } = useParams({ from: "/einkaeufe/$groceryId" });
   const navigate = useNavigate();
 
   const parameters = { id: groceryId };
@@ -30,7 +30,7 @@ function UpdateGroceryPage() {
         queryClient.invalidateQueries({ queryKey: QueryKeys.Groceries.findOne(parameters) }),
       ]);
 
-      await navigate({ to: '/abrechnungsperiode' });
+      await navigate({ to: "/abrechnungsperiode" });
     },
   });
 
@@ -46,6 +46,6 @@ function UpdateGroceryPage() {
   ) : null;
 }
 
-export const Route = createLazyFileRoute('/einkaeufe/$groceryId')({
+export const Route = createLazyFileRoute("/einkaeufe/$groceryId")({
   component: UpdateGroceryPage,
 });

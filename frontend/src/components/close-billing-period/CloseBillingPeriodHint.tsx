@@ -1,5 +1,5 @@
-import { css } from '@emotion/react';
-import { styled, Typography } from '@mui/joy';
+import { css } from "@emotion/react";
+import { styled, Typography } from "@mui/joy";
 
 export const CloseBillingPeriodHint = styled(Typography)(
   ({ theme }) => css`

@@ -1,5 +1,5 @@
-import { Box, Stack, Typography } from '@mui/joy';
-import { ReactNode } from 'react';
+import { Box, Stack, Typography } from "@mui/joy";
+import { ReactNode } from "react";
 
 type CardHeaderProps = { heading: string; children?: ReactNode; actions?: ReactNode };
 
@@ -7,12 +7,12 @@ export function PageHeader({ heading, children, actions }: CardHeaderProps) {
   return (
     <Box sx={{ marginY: 4 }}>
       <Stack
-        direction={{ md: 'row' }}
+        direction={{ md: "row" }}
         justifyContent={{
-          md: 'space-between',
+          md: "space-between",
         }}
         alignItems={{
-          md: 'center',
+          md: "center",
         }}
       >
         <Typography level="h1">{heading}</Typography>

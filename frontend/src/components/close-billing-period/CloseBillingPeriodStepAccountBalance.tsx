@@ -1,17 +1,17 @@
-import { css } from '@emotion/react';
-import { Button, FormControl, FormLabel, Grid, Input, Sheet, styled, Typography } from '@mui/joy';
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { css } from "@emotion/react";
+import { Button, FormControl, FormLabel, Grid, Input, Sheet, styled, Typography } from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import { useForm } from "react-hook-form";
 
-import { CloseBillingPeriodHint } from '@/components/close-billing-period/CloseBillingPeriodHint';
-import { CloseBillingPeriodSubmitWrapper } from '@/components/close-billing-period/CloseBillingPeriodSubmitWrapper';
-import { QueryKeys } from '@/modules/QueryKeys';
-import { CurrentBillingPeriodService } from '@/modules/api';
-import { useAccountBalanceQuery } from '@/queries/useAccountBalanceQuery';
-import { euro } from '@/setup/euro';
-import { queryClient } from '@/setup/queryClient';
-import { CloseBillingPeriodParameters } from '@/types/CloseBillingPeriodParameters';
+import { CloseBillingPeriodHint } from "@/components/close-billing-period/CloseBillingPeriodHint";
+import { CloseBillingPeriodSubmitWrapper } from "@/components/close-billing-period/CloseBillingPeriodSubmitWrapper";
+import { QueryKeys } from "@/modules/QueryKeys";
+import { CurrentBillingPeriodService } from "@/modules/api";
+import { useAccountBalanceQuery } from "@/queries/useAccountBalanceQuery";
+import { euro } from "@/setup/euro";
+import { queryClient } from "@/setup/queryClient";
+import { CloseBillingPeriodParameters } from "@/types/CloseBillingPeriodParameters";
 
 const InputCount = styled(Input)(
   () => css`
@@ -29,7 +29,9 @@ const InputReadonly = styled(InputCount)(
 
 type CloseBillingPeriodStepConfirmAccountBalance = { until: string };
 
-export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeriodStepConfirmAccountBalance) {
+export function CloseBillingPeriodStepAccountBalance({
+  until,
+}: CloseBillingPeriodStepConfirmAccountBalance) {
   const {
     register,
     handleSubmit,
@@ -40,7 +42,8 @@ export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeri
   const { data: { accountBalance } = {} } = useAccountBalanceQuery();
 
   const { mutateAsync } = useMutation({
-    mutationFn: (requestBody: CloseBillingPeriodParameters) => CurrentBillingPeriodService.close({ requestBody }),
+    mutationFn: (requestBody: CloseBillingPeriodParameters) =>
+      CurrentBillingPeriodService.close({ requestBody }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: QueryKeys.CurrentBillingPeriod.index });
     },
@@ -48,18 +51,24 @@ export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeri
 
   const navigate = useNavigate();
 
-  const countedAccountBalance = watch('countedAccountBalance');
+  const countedAccountBalance = watch("countedAccountBalance");
 
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        const billingPeriod = await mutateAsync({ until, countedAccountBalance: data.countedAccountBalance });
-        await navigate({ to: `/abrechnungsperioden/$billingPeriodId`, params: { billingPeriodId: billingPeriod.id } });
+        const billingPeriod = await mutateAsync({
+          until,
+          countedAccountBalance: data.countedAccountBalance,
+        });
+        await navigate({
+          to: `/abrechnungsperioden/$billingPeriodId`,
+          params: { billingPeriodId: billingPeriod.id },
+        });
       })}
     >
       <CloseBillingPeriodHint>
-        Zähle den aktuellen Kassenstand in der Geldbörse. Die Kassendifferenz kann nur unabhängig vom Abrechnungsdatum
-        bestimmt werden.
+        Zähle den aktuellen Kassenstand in der Geldbörse. Die Kassendifferenz kann nur unabhängig
+        vom Abrechnungsdatum bestimmt werden.
       </CloseBillingPeriodHint>
 
       <Sheet sx={{ padding: 4 }}>
@@ -77,7 +86,11 @@ export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeri
                     step: 0.01,
                   },
                 }}
-                {...register('countedAccountBalance', { required: true, valueAsNumber: true, min: 0 })}
+                {...register("countedAccountBalance", {
+                  required: true,
+                  valueAsNumber: true,
+                  min: 0,
+                })}
               />
             </FormControl>
           </Grid>
@@ -94,7 +107,7 @@ export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeri
                 endDecorator="€"
                 readOnly
                 variant="plain"
-                sx={{ textAlign: 'right', backgroundColor: 'transparent' }}
+                sx={{ textAlign: "right", backgroundColor: "transparent" }}
                 value={accountBalance}
               />
             </FormControl>
@@ -113,9 +126,9 @@ export function CloseBillingPeriodStepAccountBalance({ until }: CloseBillingPeri
                 readOnly
                 variant="plain"
                 value={
-                  typeof countedAccountBalance === 'number' && !Number.isNaN(countedAccountBalance)
+                  typeof countedAccountBalance === "number" && !Number.isNaN(countedAccountBalance)
                     ? euro(countedAccountBalance).subtract(accountBalance ?? 0).value
-                    : ''
+                    : ""
                 }
               />
             </FormControl>

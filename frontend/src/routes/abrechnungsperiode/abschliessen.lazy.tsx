@@ -1,13 +1,13 @@
-import { Step, StepButton, StepIndicator, Stepper } from '@mui/joy';
-import { createLazyFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { Step, StepButton, StepIndicator, Stepper } from "@mui/joy";
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-import CheckIcon from '@/assets/check.svg?react';
-import { PageHeader } from '@/components/PageHeader';
-import { CloseBillingPeriodStepAccountBalance } from '@/components/close-billing-period/CloseBillingPeriodStepAccountBalance';
-import { CloseBillingPeriodStepDate } from '@/components/close-billing-period/CloseBillingPeriodStepDate';
-import { CloseBillingPeriodStepGroceries } from '@/components/close-billing-period/CloseBillingPeriodStepGroceries';
-import { CloseBillingPeriodParameters } from '@/types/CloseBillingPeriodParameters';
+import CheckIcon from "@/assets/check.svg?react";
+import { PageHeader } from "@/components/PageHeader";
+import { CloseBillingPeriodStepAccountBalance } from "@/components/close-billing-period/CloseBillingPeriodStepAccountBalance";
+import { CloseBillingPeriodStepDate } from "@/components/close-billing-period/CloseBillingPeriodStepDate";
+import { CloseBillingPeriodStepGroceries } from "@/components/close-billing-period/CloseBillingPeriodStepGroceries";
+import { CloseBillingPeriodParameters } from "@/types/CloseBillingPeriodParameters";
 
 enum CloseBillingPeriodStep {
   DATE,
@@ -62,27 +62,33 @@ function CloseCurrentBillingPeriodRoute() {
             key={stepperStep}
             indicator={
               <StepIndicator
-                variant={step <= index ? 'soft' : 'solid'}
-                color={step < index ? 'neutral' : 'primary'}
+                variant={step <= index ? "soft" : "solid"}
+                color={step < index ? "neutral" : "primary"}
                 sx={(theme) => ({
-                  background: step > index ? theme.vars.palette.gradient.full : theme.vars.palette.gradient.faded,
+                  background:
+                    step > index
+                      ? theme.vars.palette.gradient.full
+                      : theme.vars.palette.gradient.faded,
                 })}
               >
                 {step <= index ? index + 1 : <CheckIcon width={16} height={16} />}
               </StepIndicator>
             }
             sx={(theme) => ({
-              '&::after': {
-                background: step > index ? theme.vars.palette.gradient.full : theme.vars.palette.gradient.faded,
+              "&::after": {
+                background:
+                  step > index
+                    ? theme.vars.palette.gradient.full
+                    : theme.vars.palette.gradient.faded,
               },
             })}
           >
             <StepButton onClick={() => setStep(stepperStep)} disabled={stepperStep > step}>
               {
                 {
-                  [CloseBillingPeriodStep.DATE]: 'Abrechnungsdatum festlegen',
-                  [CloseBillingPeriodStep.GROCERIES]: 'Einkäufe prüfen',
-                  [CloseBillingPeriodStep.COUNT_ACCOUNT_BALANCE]: 'Kassenstand zählen',
+                  [CloseBillingPeriodStep.DATE]: "Abrechnungsdatum festlegen",
+                  [CloseBillingPeriodStep.GROCERIES]: "Einkäufe prüfen",
+                  [CloseBillingPeriodStep.COUNT_ACCOUNT_BALANCE]: "Kassenstand zählen",
                 }[stepperStep]
               }
             </StepButton>
@@ -95,6 +101,6 @@ function CloseCurrentBillingPeriodRoute() {
   );
 }
 
-export const Route = createLazyFileRoute('/abrechnungsperiode/abschliessen')({
+export const Route = createLazyFileRoute("/abrechnungsperiode/abschliessen")({
   component: CloseCurrentBillingPeriodRoute,
 });

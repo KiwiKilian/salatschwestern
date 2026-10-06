@@ -1,7 +1,7 @@
-import { Container } from '@mui/joy';
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { Container } from "@mui/joy";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 
-import { Header } from '@/components/Header';
+import { Header } from "@/components/Header";
 
 function RootLayout() {
   return (

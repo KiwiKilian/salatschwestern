@@ -1,26 +1,26 @@
-import { Box, Button, FormControl, FormLabel, Input, Sheet } from '@mui/joy';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { createLazyFileRoute, useNavigate, useParams } from '@tanstack/react-router';
-import dayjs from 'dayjs';
-import { useForm } from 'react-hook-form';
+import { Box, Button, FormControl, FormLabel, Input, Sheet } from "@mui/joy";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createLazyFileRoute, useNavigate, useParams } from "@tanstack/react-router";
+import dayjs from "dayjs";
+import { useForm } from "react-hook-form";
 
-import { PageHeader } from '@/components/PageHeader';
-import { QueryKeys } from '@/modules/QueryKeys';
-import { CreateUserBalanceDto, UserBalancesService, UsersService } from '@/modules/api';
-import { queryClient } from '@/setup/queryClient';
+import { PageHeader } from "@/components/PageHeader";
+import { QueryKeys } from "@/modules/QueryKeys";
+import { CreateUserBalanceDto, UserBalancesService, UsersService } from "@/modules/api";
+import { queryClient } from "@/setup/queryClient";
 
 function CreateUserBalancePage() {
   const navigate = useNavigate();
-  const { userId } = useParams({ from: '/schwestern/$userId/buchen' });
+  const { userId } = useParams({ from: "/schwestern/$userId/buchen" });
 
-  const { register, handleSubmit } = useForm<Omit<CreateUserBalanceDto, 'userId'>>();
+  const { register, handleSubmit } = useForm<Omit<CreateUserBalanceDto, "userId">>();
 
   const { mutate } = useMutation({
     mutationFn: (createUserBalanceDto: CreateUserBalanceDto) =>
       UserBalancesService.create({ requestBody: createUserBalanceDto }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: QueryKeys.CurrentBillingPeriod.index });
-      await navigate({ to: '/schwestern' });
+      await navigate({ to: "/schwestern" });
     },
   });
 
@@ -47,19 +47,19 @@ function CreateUserBalancePage() {
             type="date"
             slotProps={{
               input: {
-                min: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
-                max: dayjs().format('YYYY-MM-DD'),
+                min: dayjs().subtract(3, "month").format("YYYY-MM-DD"),
+                max: dayjs().format("YYYY-MM-DD"),
               },
             }}
-            min={dayjs().subtract(3, 'month').format('YYYY-MM-DD')}
-            {...register('date', { required: true })}
+            min={dayjs().subtract(3, "month").format("YYYY-MM-DD")}
+            {...register("date", { required: true })}
           />
         </FormControl>
 
         <FormControl>
           <FormLabel>Betrag</FormLabel>
           <Input
-            style={{ textAlign: 'right' }}
+            style={{ textAlign: "right" }}
             required
             type="number"
             slotProps={{
@@ -69,12 +69,12 @@ function CreateUserBalancePage() {
                 max: 999.99,
               },
             }}
-            {...register('amount', { required: true, min: -999.99, max: 999.99 })}
+            {...register("amount", { required: true, min: -999.99, max: 999.99 })}
           />
         </FormControl>
       </Sheet>
 
-      <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: "center" }}>
         <Button size="lg" type="submit">
           Buchen
         </Button>
@@ -83,6 +83,6 @@ function CreateUserBalancePage() {
   );
 }
 
-export const Route = createLazyFileRoute('/schwestern/$userId/buchen')({
+export const Route = createLazyFileRoute("/schwestern/$userId/buchen")({
   component: CreateUserBalancePage,
 });

@@ -1,4 +1,4 @@
-import { IsISO8601, IsUUID } from 'class-validator';
+import { IsISO8601, IsUUID } from "class-validator";
 
 export class CreateSaladDto {
   @IsISO8601()

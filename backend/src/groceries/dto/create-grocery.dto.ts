@@ -1,4 +1,4 @@
-import { IsISO8601, IsNegative, IsNumber, IsUUID } from 'class-validator';
+import { IsISO8601, IsNegative, IsNumber, IsUUID } from "class-validator";
 
 export class CreateGroceryDto {
   @IsISO8601()

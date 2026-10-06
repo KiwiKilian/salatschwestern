@@ -1,13 +1,13 @@
-import { Box, Button, FormControl, FormLabel, Input, Sheet, Stack } from '@mui/joy';
-import dayjs from 'dayjs';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { Box, Button, FormControl, FormLabel, Input, Sheet, Stack } from "@mui/joy";
+import dayjs from "dayjs";
+import { useFieldArray, useForm } from "react-hook-form";
 
-import { PageHeader } from '@/components/PageHeader';
-import { UserAutocomplete } from '@/components/UserAutocomplete';
-import { UserChip } from '@/components/UserChip';
-import { CreateGroceryDto, User } from '@/modules/api';
+import { PageHeader } from "@/components/PageHeader";
+import { UserAutocomplete } from "@/components/UserAutocomplete";
+import { UserChip } from "@/components/UserChip";
+import { CreateGroceryDto, User } from "@/modules/api";
 
-type FormData = Omit<CreateGroceryDto, 'userIds'> & { users: User[] };
+type FormData = Omit<CreateGroceryDto, "userIds"> & { users: User[] };
 
 type GroceryFormProps = {
   heading: string;
@@ -25,8 +25,8 @@ export function GroceryForm({ heading, submitLabel, onSubmit, defaultValues }: G
   });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'users',
-    keyName: 'fieldId',
+    name: "users",
+    keyName: "fieldId",
     rules: {
       required: true,
       minLength: 1,
@@ -53,18 +53,18 @@ export function GroceryForm({ heading, submitLabel, onSubmit, defaultValues }: G
             type="date"
             slotProps={{
               input: {
-                min: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
-                max: dayjs().format('YYYY-MM-DD'),
+                min: dayjs().subtract(3, "month").format("YYYY-MM-DD"),
+                max: dayjs().format("YYYY-MM-DD"),
               },
             }}
-            {...register('date', { required: true })}
+            {...register("date", { required: true })}
           />
         </FormControl>
 
         <FormControl sx={{ marginBottom: 2 }}>
           <FormLabel>Einkaufspreis</FormLabel>
           <Input
-            sx={{ textAlign: 'right' }}
+            sx={{ textAlign: "right" }}
             required
             slotProps={{
               input: {
@@ -73,7 +73,7 @@ export function GroceryForm({ heading, submitLabel, onSubmit, defaultValues }: G
               },
             }}
             type="number"
-            {...register('amount', { required: true, min: 0 })}
+            {...register("amount", { required: true, min: 0 })}
           />
         </FormControl>
 
@@ -90,7 +90,7 @@ export function GroceryForm({ heading, submitLabel, onSubmit, defaultValues }: G
         </FormControl>
       </Sheet>
 
-      <Box sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: "center" }}>
         <Button size="lg" type="submit">
           {submitLabel}
         </Button>

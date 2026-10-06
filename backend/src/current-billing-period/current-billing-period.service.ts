@@ -1,16 +1,16 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, IsNull, LessThanOrEqual, Repository } from 'typeorm';
+import { Injectable, UnprocessableEntityException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { FindManyOptions, IsNull, LessThanOrEqual, Repository } from "typeorm";
 
-import { AccountBalance } from '@/account-balances/entities/account-balance.entity';
-import { BalancesService } from '@/balances/balances.service';
-import { BillingPeriod } from '@/billing-periods/entities/billing-period.entity';
-import { CloseCurrentBillingPeriodDto } from '@/current-billing-period/dto/close-current-billing-period.dto';
-import { CurrentBillingPeriodDto } from '@/current-billing-period/dto/current-billing-period.dto';
-import { Grocery } from '@/groceries/entities/grocery.entity';
-import { NotificationService } from '@/notification/notification.service';
-import { Salad } from '@/salads/entities/salad.entity';
-import { euro } from '@/setup/euro';
+import { AccountBalance } from "@/account-balances/entities/account-balance.entity";
+import { BalancesService } from "@/balances/balances.service";
+import { BillingPeriod } from "@/billing-periods/entities/billing-period.entity";
+import { CloseCurrentBillingPeriodDto } from "@/current-billing-period/dto/close-current-billing-period.dto";
+import { CurrentBillingPeriodDto } from "@/current-billing-period/dto/current-billing-period.dto";
+import { Grocery } from "@/groceries/entities/grocery.entity";
+import { NotificationService } from "@/notification/notification.service";
+import { Salad } from "@/salads/entities/salad.entity";
+import { euro } from "@/setup/euro";
 
 @Injectable()
 export class CurrentBillingPeriodService {
@@ -35,9 +35,9 @@ export class CurrentBillingPeriodService {
       ...findManyOptions,
       relations: { user: true },
       order: {
-        date: 'ASC',
+        date: "ASC",
         user: {
-          displayName: 'ASC',
+          displayName: "ASC",
         },
       },
     });
@@ -45,9 +45,9 @@ export class CurrentBillingPeriodService {
       ...findManyOptions,
       relations: { users: true },
       order: {
-        date: 'ASC',
+        date: "ASC",
         users: {
-          displayName: 'ASC',
+          displayName: "ASC",
         },
       },
     });
@@ -92,14 +92,17 @@ export class CurrentBillingPeriodService {
     if (accountBalanceDifference.value !== 0) {
       await this.accountBalancesRepository.save(
         this.accountBalancesRepository.create({
-          subject: 'Kassenkorrektur',
+          subject: "Kassenkorrektur",
           date: until,
           amount: accountBalanceDifference.value,
         }),
       );
     }
 
-    this.notificationService.currentBillingPeriodClosed({ billingPeriod, accountBalanceDifference });
+    this.notificationService.currentBillingPeriodClosed({
+      billingPeriod,
+      accountBalanceDifference,
+    });
 
     return billingPeriod;
   }

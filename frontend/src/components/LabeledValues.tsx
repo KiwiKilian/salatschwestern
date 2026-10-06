@@ -1,5 +1,5 @@
-import { Stack } from '@mui/joy';
-import { ReactNode } from 'react';
+import { Stack } from "@mui/joy";
+import { ReactNode } from "react";
 
 type LabeledValuesProps = { children: ReactNode };
 

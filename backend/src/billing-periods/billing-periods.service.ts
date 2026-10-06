@@ -1,18 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { BillingPeriod } from '@/billing-periods/entities/billing-period.entity';
+import { BillingPeriod } from "@/billing-periods/entities/billing-period.entity";
 
 @Injectable()
 export class BillingPeriodsService {
-  constructor(@InjectRepository(BillingPeriod) private billingPeriodsRepository: Repository<BillingPeriod>) {}
+  constructor(
+    @InjectRepository(BillingPeriod) private billingPeriodsRepository: Repository<BillingPeriod>,
+  ) {}
 
   findAll(): Promise<BillingPeriod[]> {
     return this.billingPeriodsRepository.find({
       relations: { salads: true, groceries: true },
       order: {
-        billingDate: 'DESC',
+        billingDate: "DESC",
       },
     });
   }
@@ -27,15 +29,15 @@ export class BillingPeriodsService {
       },
       order: {
         salads: {
-          date: 'ASC',
+          date: "ASC",
           user: {
-            displayName: 'ASC',
+            displayName: "ASC",
           },
         },
         groceries: {
-          date: 'ASC',
+          date: "ASC",
           users: {
-            displayName: 'ASC',
+            displayName: "ASC",
           },
         },
       },

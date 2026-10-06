@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
-import { Stack, styled, Typography } from '@mui/joy';
-import { ReactNode } from 'react';
+import { css } from "@emotion/react";
+import { Stack, styled, Typography } from "@mui/joy";
+import { ReactNode } from "react";
 
 const StyledStack = styled(Stack)(
   ({ theme }) => css`
@@ -17,7 +17,7 @@ export function LabeledValue({ value, label }: LabeledValueProps) {
   return (
     <StyledStack>
       <Typography level="title-lg" fontWeight="bold">
-        {value !== undefined ? value : '–'}
+        {value !== undefined ? value : "–"}
       </Typography>
       <Typography>{label}</Typography>
     </StyledStack>

@@ -1,12 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-import { CreateGroceryDto } from '@/groceries/dto/create-grocery.dto';
-import { UpdateGroceryDto } from '@/groceries/dto/update-grocery.dto';
-import { GroceriesService } from '@/groceries/groceries.service';
+import { CreateGroceryDto } from "@/groceries/dto/create-grocery.dto";
+import { UpdateGroceryDto } from "@/groceries/dto/update-grocery.dto";
+import { GroceriesService } from "@/groceries/groceries.service";
 
-@ApiTags('Groceries')
-@Controller('groceries')
+@ApiTags("Groceries")
+@Controller("groceries")
 export class GroceriesController {
   constructor(private readonly groceriesService: GroceriesService) {}
 
@@ -20,18 +20,18 @@ export class GroceriesController {
     return this.groceriesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.groceriesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGroceryDto: UpdateGroceryDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updateGroceryDto: UpdateGroceryDto) {
     return this.groceriesService.update(id, updateGroceryDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.groceriesService.remove(id);
   }
 }

@@ -1,13 +1,13 @@
-import { Box, Button, Sheet, Stack, Typography } from '@mui/joy';
-import { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { Box, Button, Sheet, Stack, Typography } from "@mui/joy";
+import { Dayjs } from "dayjs";
+import { useState } from "react";
 
-import CrossIcon from '@/assets/cross.svg?react';
-import { RemoveSaladDialog } from '@/components/RemoveSaladDialog';
-import { UserAutocomplete } from '@/components/UserAutocomplete';
-import { UserChip } from '@/components/UserChip';
-import { Salad } from '@/modules/api';
-import { useCreateSaladMutation } from '@/mutations/useCreateSaladMutation';
+import CrossIcon from "@/assets/cross.svg?react";
+import { RemoveSaladDialog } from "@/components/RemoveSaladDialog";
+import { UserAutocomplete } from "@/components/UserAutocomplete";
+import { UserChip } from "@/components/UserChip";
+import { Salad } from "@/modules/api";
+import { useCreateSaladMutation } from "@/mutations/useCreateSaladMutation";
 
 type DayCardProps = {
   date: Dayjs;
@@ -23,10 +23,16 @@ export function DayCard({ date, salads }: DayCardProps) {
 
   return (
     <Sheet sx={{ padding: 4 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" gap={1} marginBottom={2}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        gap={1}
+        marginBottom={2}
+      >
         <Box>
-          <Typography level="title-lg">{date.format('dddd')}</Typography>
-          <Typography level="title-md">{date.format('DD.MM.')}</Typography>
+          <Typography level="title-lg">{date.format("dddd")}</Typography>
+          <Typography level="title-md">{date.format("DD.MM.")}</Typography>
         </Box>
         <Typography level="h1" component="p" title="Anzahl Salate">
           {salads?.length} 🥗
@@ -34,7 +40,9 @@ export function DayCard({ date, salads }: DayCardProps) {
       </Stack>
 
       <Stack gap={1} direction="row" flexWrap="wrap">
-        {salads?.map((salad) => <UserChip key={salad.id} user={salad.user!} onRemove={() => setRemoveSalad(salad)} />)}
+        {salads?.map((salad) => (
+          <UserChip key={salad.id} user={salad.user!} onRemove={() => setRemoveSalad(salad)} />
+        ))}
 
         {userSelectEnabled ? (
           <UserAutocomplete

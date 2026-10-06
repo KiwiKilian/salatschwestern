@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { AccountBalance } from '@/account-balances/entities/account-balance.entity';
-import { Grocery } from '@/groceries/entities/grocery.entity';
-import { UserBalance } from '@/user-balances/entities/user-balance.entity';
+import { AccountBalance } from "@/account-balances/entities/account-balance.entity";
+import { Grocery } from "@/groceries/entities/grocery.entity";
+import { UserBalance } from "@/user-balances/entities/user-balance.entity";
 
 @Injectable()
 export class FinancialTransactionsService {
@@ -18,7 +18,7 @@ export class FinancialTransactionsService {
     const accountBalances = await this.accountBalancesRepository.find();
     const groceries = await this.groceriesRepository.find({
       relations: { users: true },
-      order: { users: { displayName: 'ASC' } },
+      order: { users: { displayName: "ASC" } },
     });
     const userBalances = await this.userBalancesRepository.find({ relations: { user: true } });
 

@@ -1,5 +1,5 @@
-import { AccountBalance, FinancialTransactionType, Grocery, UserBalance } from '@/modules/api';
-import { FinancialTransaction } from '@/types/FinancialTransaction';
+import { AccountBalance, FinancialTransactionType, Grocery, UserBalance } from "@/modules/api";
+import { FinancialTransaction } from "@/types/FinancialTransaction";
 
 export class FinancialTransactionGuard {
   public static isAccountBalance(transaction: FinancialTransaction): transaction is AccountBalance {

@@ -1,10 +1,10 @@
-import { css } from '@emotion/react';
-import { Box, Sheet, styled, Table } from '@mui/joy';
-import dayjs from 'dayjs';
-import { useMemo } from 'react';
+import { css } from "@emotion/react";
+import { Box, Sheet, styled, Table } from "@mui/joy";
+import dayjs from "dayjs";
+import { useMemo } from "react";
 
-import { BillingPeriod, CurrentBillingPeriodDto, Salad, User } from '@/modules/api';
-import { euro } from '@/setup/euro';
+import { BillingPeriod, CurrentBillingPeriodDto, Salad, User } from "@/modules/api";
+import { euro } from "@/setup/euro";
 
 const StyledTable = styled(Table)(
   ({ theme }) => css`
@@ -18,7 +18,7 @@ const StyledTable = styled(Table)(
   `,
 );
 
-const NameCell = styled('th')(
+const NameCell = styled("th")(
   ({ theme }) => css`
     position: sticky;
     left: 0;
@@ -29,7 +29,7 @@ const NameCell = styled('th')(
   `,
 );
 
-const DateVertical = styled('span')(
+const DateVertical = styled("span")(
   () => css`
     writing-mode: tb-rl;
     transform: rotate(-180deg);
@@ -47,15 +47,15 @@ export function SaladsCalendar({ billingPeriod }: SaladsCalendarProps) {
       return undefined;
     }
 
-    const dayStart = (dayjs.min(dates) || dayjs()).startOf('day').weekday(0);
-    const dayEnd = (dayjs.max(dates) || dayjs()).startOf('day').weekday(4);
+    const dayStart = (dayjs.min(dates) || dayjs()).startOf("day").weekday(0);
+    const dayEnd = (dayjs.max(dates) || dayjs()).startOf("day").weekday(4);
 
     const days = [];
 
-    const difference = dayEnd.diff(dayStart, 'days');
+    const difference = dayEnd.diff(dayStart, "days");
 
     for (let i = 0; i <= difference; i += 1) {
-      const day = dayStart.clone().add(i, 'day');
+      const day = dayStart.clone().add(i, "day");
 
       if (day.weekday() <= 4) {
         days.push(day);
@@ -86,8 +86,8 @@ export function SaladsCalendar({ billingPeriod }: SaladsCalendarProps) {
   );
 
   return saladDays ? (
-    <Sheet sx={{ overflow: 'hidden' }}>
-      <Box sx={{ overflow: 'scroll' }}>
+    <Sheet sx={{ overflow: "hidden" }}>
+      <Box sx={{ overflow: "scroll" }}>
         <StyledTable hoverRow>
           <thead>
             <tr>
@@ -98,14 +98,15 @@ export function SaladsCalendar({ billingPeriod }: SaladsCalendarProps) {
               <th />
               {saladDays?.map((day, index) => (
                 <th
-                  key={day.format('YYYY-MM-DD')}
+                  key={day.format("YYYY-MM-DD")}
                   style={{
-                    textAlign: 'center',
+                    textAlign: "center",
                     minWidth: 48,
-                    ...(index + 1 < saladDays.length && day.weekday() === 4 && { borderRightStyle: 'solid' }),
+                    ...(index + 1 < saladDays.length &&
+                      day.weekday() === 4 && { borderRightStyle: "solid" }),
                   }}
                 >
-                  <DateVertical>{day.format('DD.MM.')}</DateVertical>
+                  <DateVertical>{day.format("DD.MM.")}</DateVertical>
                 </th>
               ))}
             </tr>
@@ -117,27 +118,31 @@ export function SaladsCalendar({ billingPeriod }: SaladsCalendarProps) {
                 .map(({ user, salads }) => (
                   <tr key={user.id}>
                     <NameCell scope="row">{user.displayName}</NameCell>
-                    <td style={{ paddingRight: 16, whiteSpace: 'nowrap', textAlign: 'right' }}>{salads.length}×🥗</td>
-                    <td style={{ paddingRight: 16, whiteSpace: 'nowrap', textAlign: 'right' }}>
+                    <td style={{ paddingRight: 16, whiteSpace: "nowrap", textAlign: "right" }}>
+                      {salads.length}×🥗
+                    </td>
+                    <td style={{ paddingRight: 16, whiteSpace: "nowrap", textAlign: "right" }}>
                       {euro(billingPeriod.saladPrice!).multiply(salads.length).format()}
                     </td>
                     {saladDays?.map((day, index) => {
-                      const dayDate = day.format('YYYY-MM-DD');
+                      const dayDate = day.format("YYYY-MM-DD");
 
                       return (
                         <td
                           key={dayDate}
                           style={{
-                            textAlign: 'center',
+                            textAlign: "center",
                             minWidth: 48,
                             height: 48,
                             padding: 0,
-                            fontSize: 'var(--Typography-fontSize, var(--joy-fontSize-lg, 1.125rem))',
-                            ...(index % 2 === 0 && { backgroundColor: 'white' }),
-                            ...(index + 1 < saladDays.length && day.weekday() === 4 && { borderRightStyle: 'solid' }),
+                            fontSize:
+                              "var(--Typography-fontSize, var(--joy-fontSize-lg, 1.125rem))",
+                            ...(index % 2 === 0 && { backgroundColor: "white" }),
+                            ...(index + 1 < saladDays.length &&
+                              day.weekday() === 4 && { borderRightStyle: "solid" }),
                           }}
                         >
-                          {salads.find(({ date }) => date === dayDate) ? '🥗' : ''}
+                          {salads.find(({ date }) => date === dayDate) ? "🥗" : ""}
                         </td>
                       );
                     })}

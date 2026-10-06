@@ -1,11 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Expose } from 'class-transformer';
-import { Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
+import { ApiProperty } from "@nestjs/swagger";
+import { Expose } from "class-transformer";
+import { Entity, JoinColumn, ManyToMany, ManyToOne } from "typeorm";
 
-import { FinancialTransaction } from '@/base-entities/financial-transaction.entity';
-import { BillingPeriod } from '@/billing-periods/entities/billing-period.entity';
-import { FinancialTransactionType } from '@/types/FinancialTransactionType';
-import { User } from '@/users/entities/user.entity';
+import { FinancialTransaction } from "@/base-entities/financial-transaction.entity";
+import { BillingPeriod } from "@/billing-periods/entities/billing-period.entity";
+import { FinancialTransactionType } from "@/types/FinancialTransactionType";
+import { User } from "@/users/entities/user.entity";
 
 @Entity()
 export class Grocery extends FinancialTransaction {
@@ -17,7 +17,7 @@ export class Grocery extends FinancialTransaction {
   billingPeriod?: BillingPeriod | null;
 
   @Expose()
-  @ApiProperty({ enum: FinancialTransactionType, enumName: 'FinancialTransactionType' })
+  @ApiProperty({ enum: FinancialTransactionType, enumName: "FinancialTransactionType" })
   get financialTransactionType() {
     return FinancialTransactionType.Grocery;
   }

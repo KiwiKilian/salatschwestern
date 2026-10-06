@@ -1,9 +1,9 @@
-import { Autocomplete } from '@mui/joy';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { Autocomplete } from "@mui/joy";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { QueryKeys } from '@/modules/QueryKeys';
-import { User, UsersService } from '@/modules/api';
+import { QueryKeys } from "@/modules/QueryKeys";
+import { User, UsersService } from "@/modules/api";
 
 type AddUserProps = {
   onChange: (user: User | null) => void;
@@ -17,10 +17,11 @@ export function UserAutocomplete({ onChange, excludeUsers, autoFocus }: AddUserP
     queryFn: async () => UsersService.findAll({ active: true }),
   });
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const filteredUsers =
-    users?.filter((user) => !excludeUsers || !excludeUsers.map(({ id }) => id).includes(user.id)) || [];
+    users?.filter((user) => !excludeUsers || !excludeUsers.map(({ id }) => id).includes(user.id)) ||
+    [];
 
   return (
     <Autocomplete
@@ -41,7 +42,7 @@ export function UserAutocomplete({ onChange, excludeUsers, autoFocus }: AddUserP
       onChange={(event, value) => {
         if (value) {
           onChange(value);
-          setInputValue('');
+          setInputValue("");
         }
       }}
     />

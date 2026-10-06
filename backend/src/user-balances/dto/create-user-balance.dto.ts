@@ -1,4 +1,4 @@
-import { IsISO8601, IsNumber, IsUUID } from 'class-validator';
+import { IsISO8601, IsNumber, IsUUID } from "class-validator";
 
 export class CreateUserBalanceDto {
   @IsISO8601()

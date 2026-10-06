@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { CreateUserBalanceDto } from '@/user-balances/dto/create-user-balance.dto';
-import { UpdateUserBalanceDto } from '@/user-balances/dto/update-user-balance.dto';
-import { UserBalance } from '@/user-balances/entities/user-balance.entity';
+import { CreateUserBalanceDto } from "@/user-balances/dto/create-user-balance.dto";
+import { UpdateUserBalanceDto } from "@/user-balances/dto/update-user-balance.dto";
+import { UserBalance } from "@/user-balances/entities/user-balance.entity";
 
 @Injectable()
 export class UserBalancesService {
-  constructor(@InjectRepository(UserBalance) private userBalancesRepository: Repository<UserBalance>) {}
+  constructor(
+    @InjectRepository(UserBalance) private userBalancesRepository: Repository<UserBalance>,
+  ) {}
 
   create({ userId, ...createUserBalanceDto }: CreateUserBalanceDto): Promise<UserBalance> {
     return this.userBalancesRepository.save(

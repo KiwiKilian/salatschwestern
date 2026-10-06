@@ -1,12 +1,21 @@
-import { css } from '@emotion/react';
-import { Button, Container, List, ListDivider, ListItem, ListItemButton, styled, Typography } from '@mui/joy';
-import { Link } from '@tanstack/react-router';
-import { Fragment, useEffect, useState } from 'react';
+import { css } from "@emotion/react";
+import {
+  Button,
+  Container,
+  List,
+  ListDivider,
+  ListItem,
+  ListItemButton,
+  styled,
+  Typography,
+} from "@mui/joy";
+import { Link } from "@tanstack/react-router";
+import { Fragment, useEffect, useState } from "react";
 
-import { CommandMenu } from '@/components/CommandMenu';
-import { HEADER_ITEMS } from '@/modules/HEADER_ITEMS';
+import { CommandMenu } from "@/components/CommandMenu";
+import { HEADER_ITEMS } from "@/modules/HEADER_ITEMS";
 
-const StyledHeader = styled('header')(
+const StyledHeader = styled("header")(
   ({ theme }) => css`
     position: sticky;
     top: 0;
@@ -17,7 +26,7 @@ const StyledHeader = styled('header')(
     border-bottom: 1px solid ${theme.vars.palette.neutral.outlinedBorder};
 
     &::after {
-      content: '';
+      content: "";
       background: ${theme.vars.palette.gradient.full};
       opacity: 0.05;
       position: absolute;
@@ -27,7 +36,7 @@ const StyledHeader = styled('header')(
   `,
 );
 
-const StyledNav = styled('nav')(
+const StyledNav = styled("nav")(
   () => css`
     flex: 1 0 auto;
     display: flex;
@@ -36,7 +45,7 @@ const StyledNav = styled('nav')(
   `,
 );
 
-const StyledKeyCommand = styled('span')(
+const StyledKeyCommand = styled("span")(
   ({ theme }) => css`
     margin-left: ${theme.spacing(0.5)};
     padding: ${theme.spacing(0.125)} ${theme.spacing(0.5)};
@@ -53,31 +62,38 @@ export function Header() {
 
   useEffect(() => {
     const down = (event: KeyboardEvent) => {
-      if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+      if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
         setCommandMenuOpen((prevState) => !prevState);
       }
     };
 
-    document.addEventListener('keydown', down);
+    document.addEventListener("keydown", down);
 
-    return () => document.removeEventListener('keydown', down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   return (
     <>
       <StyledHeader>
-        <Container sx={{ display: 'flex' }}>
+        <Container sx={{ display: "flex" }}>
           <StyledNav>
             <Typography level="h3" sx={{ margin: 0 }}>
               🥗 Salatschwestern
             </Typography>
 
-            <Button sx={{ display: { xs: 'block', md: 'none' } }} onClick={() => setCommandMenuOpen(true)}>
+            <Button
+              sx={{ display: { xs: "block", md: "none" } }}
+              onClick={() => setCommandMenuOpen(true)}
+            >
               Menü <StyledKeyCommand>⌘K</StyledKeyCommand>
             </Button>
 
-            <List role="menubar" orientation="horizontal" sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}>
+            <List
+              role="menubar"
+              orientation="horizontal"
+              sx={{ display: { xs: "none", md: "flex" }, flexGrow: 0 }}
+            >
               {HEADER_ITEMS.map((item, index, array) => (
                 <Fragment key={item.to}>
                   <ListItem role="none">

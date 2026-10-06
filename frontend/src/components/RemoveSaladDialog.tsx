@@ -1,10 +1,18 @@
-import { Button, DialogActions, DialogContent, DialogTitle, Modal, ModalDialog, Typography } from '@mui/joy';
-import { useMutation } from '@tanstack/react-query';
-import dayjs from 'dayjs';
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Modal,
+  ModalDialog,
+  Typography,
+} from "@mui/joy";
+import { useMutation } from "@tanstack/react-query";
+import dayjs from "dayjs";
 
-import { QueryKeys } from '@/modules/QueryKeys';
-import { Salad, SaladsService } from '@/modules/api';
-import { queryClient } from '@/setup/queryClient';
+import { QueryKeys } from "@/modules/QueryKeys";
+import { Salad, SaladsService } from "@/modules/api";
+import { queryClient } from "@/setup/queryClient";
 
 type RemoveSaladDialogProps = {
   salad?: Salad;
@@ -26,8 +34,8 @@ export function RemoveSaladDialog({ salad, onClose }: RemoveSaladDialogProps) {
 
         <DialogContent>
           <Typography>
-            Bist Du dir sicher, dass du den Salat von <strong>{salad?.user?.displayName}</strong> am{' '}
-            <strong>{dayjs(salad?.date).format('DD.MM.')}</strong> löschen willst?
+            Bist Du dir sicher, dass du den Salat von <strong>{salad?.user?.displayName}</strong> am{" "}
+            <strong>{dayjs(salad?.date).format("DD.MM.")}</strong> löschen willst?
           </Typography>
         </DialogContent>
 

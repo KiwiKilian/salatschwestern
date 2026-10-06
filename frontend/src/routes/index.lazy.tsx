@@ -1,22 +1,24 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
-import dayjs from 'dayjs';
-import { useState } from 'react';
+import { createLazyFileRoute } from "@tanstack/react-router";
+import dayjs from "dayjs";
+import { useState } from "react";
 
-import { BillingPeriodLabeledValues } from '@/components/BillingPeriodLabeledValues';
-import { DayCard } from '@/components/DayCard';
-import { PageHeader } from '@/components/PageHeader';
-import { WeekNavigation } from '@/components/WeekNavigation';
-import { useCurrentBillingPeriodQuery } from '@/hooks/useCurrentBillingPeriodQuery';
-import { CurrentBillingPeriodDto } from '@/modules/api';
+import { BillingPeriodLabeledValues } from "@/components/BillingPeriodLabeledValues";
+import { DayCard } from "@/components/DayCard";
+import { PageHeader } from "@/components/PageHeader";
+import { WeekNavigation } from "@/components/WeekNavigation";
+import { useCurrentBillingPeriodQuery } from "@/hooks/useCurrentBillingPeriodQuery";
+import { CurrentBillingPeriodDto } from "@/modules/api";
 
 function IndexRoute() {
   const { data: currentBillingPeriod } = useCurrentBillingPeriodQuery();
   const [weekOffset, setWeekOffset] = useState(0);
 
-  const monday = dayjs().startOf('week').add(weekOffset, 'weeks');
+  const monday = dayjs().startOf("week").add(weekOffset, "weeks");
   const weekOfYear = monday.week();
 
-  const weekSalads = currentBillingPeriod?.salads.filter(({ date }) => dayjs(date).week() === weekOfYear);
+  const weekSalads = currentBillingPeriod?.salads.filter(
+    ({ date }) => dayjs(date).week() === weekOfYear,
+  );
 
   return (
     <>
@@ -34,13 +36,13 @@ function IndexRoute() {
       />
 
       {Array.from(Array(5).keys()).map((index) => {
-        const day = monday.add(index, 'days');
+        const day = monday.add(index, "days");
 
         return (
           <DayCard
             key={index}
             date={day}
-            salads={weekSalads?.filter(({ date }) => date === day.format('YYYY-MM-DD'))}
+            salads={weekSalads?.filter(({ date }) => date === day.format("YYYY-MM-DD"))}
           />
         );
       })}
@@ -48,6 +50,6 @@ function IndexRoute() {
   );
 }
 
-export const Route = createLazyFileRoute('/')({
+export const Route = createLazyFileRoute("/")({
   component: IndexRoute,
 });

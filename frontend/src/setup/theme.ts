@@ -1,9 +1,9 @@
-import '@fontsource-variable/inter';
-import { css } from '@emotion/react';
-import { extendTheme } from '@mui/joy/styles';
-import { Link } from '@tanstack/react-router';
+import "@fontsource-variable/inter";
+import { css } from "@emotion/react";
+import { extendTheme } from "@mui/joy/styles";
+import { Link } from "@tanstack/react-router";
 
-declare module '@mui/joy/styles' {
+declare module "@mui/joy/styles" {
   interface Palette {
     gradient: {
       faded: string;
@@ -12,19 +12,19 @@ declare module '@mui/joy/styles' {
   }
 }
 
-declare module '@mui/joy/Alert' {
+declare module "@mui/joy/Alert" {
   interface AlertPropsVariantOverrides {
     gradient: true;
   }
 }
 
-declare module '@mui/joy/ModalDialog' {
+declare module "@mui/joy/ModalDialog" {
   interface ModalDialogPropsVariantOverrides {
     gradient: true;
   }
 }
 
-declare module '@mui/joy/Sheet' {
+declare module "@mui/joy/Sheet" {
   interface SheetPropsVariantOverrides {
     gradient: true;
   }
@@ -35,8 +35,8 @@ export const theme = extendTheme({
     light: {
       palette: {
         gradient: {
-          full: 'linear-gradient(60deg, #ffba00 15%, #84bd00 50%, #28939c 85%)',
-          faded: 'linear-gradient(60deg, #fefcf4 15%, #f8fcf4 50%, #f5f9fa 85%)',
+          full: "linear-gradient(60deg, #ffba00 15%, #84bd00 50%, #28939c 85%)",
+          faded: "linear-gradient(60deg, #fefcf4 15%, #f8fcf4 50%, #f5f9fa 85%)",
         },
         neutral: {
           // 50: '#ebebeb',
@@ -55,19 +55,19 @@ export const theme = extendTheme({
   },
 
   fontFamily: {
-    display: 'Inter Variable, var(--joy-fontFamily-fallback)',
-    body: 'Inter Variable, var(--joy-fontFamily-fallback)',
+    display: "Inter Variable, var(--joy-fontFamily-fallback)",
+    body: "Inter Variable, var(--joy-fontFamily-fallback)",
   },
 
   components: {
     JoyAlert: {
       defaultProps: {
-        variant: 'gradient',
-        size: 'lg',
+        variant: "gradient",
+        size: "lg",
       },
       styleOverrides: {
         root: ({ theme: innerTheme, ownerState }) => {
-          if (ownerState.variant === 'gradient') {
+          if (ownerState.variant === "gradient") {
             return css`
               border: ${innerTheme.vars.palette.neutral.outlinedBorder} 1px solid;
               border-radius: ${innerTheme.vars.radius.xl};
@@ -82,22 +82,22 @@ export const theme = extendTheme({
     },
     JoyButton: {
       defaultProps: {
-        variant: 'outlined',
-        color: 'neutral',
+        variant: "outlined",
+        color: "neutral",
       },
     },
     JoyFormControl: {
       defaultProps: {
-        size: 'lg',
+        size: "lg",
       },
     },
     JoyModalDialog: {
       defaultProps: {
-        variant: 'gradient',
+        variant: "gradient",
       },
       styleOverrides: {
         root: ({ theme: innerTheme, ownerState }) => {
-          if (ownerState.variant === 'gradient') {
+          if (ownerState.variant === "gradient") {
             return css`
               background: ${innerTheme.vars.palette.gradient.faded};
             `;
@@ -121,11 +121,11 @@ export const theme = extendTheme({
     },
     JoySheet: {
       defaultProps: {
-        variant: 'gradient',
+        variant: "gradient",
       },
       styleOverrides: {
         root: ({ theme: innerTheme, ownerState }) => {
-          if (ownerState.variant === 'gradient') {
+          if (ownerState.variant === "gradient") {
             return css`
               background: ${innerTheme.vars.palette.gradient.faded};
               border: ${innerTheme.vars.palette.neutral.outlinedBorder} 1px solid;
