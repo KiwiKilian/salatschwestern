@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { ViteEjsPlugin } from 'vite-plugin-ejs';
 import svgr from 'vite-plugin-svgr';
-import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+import { tanstackRouter } from '@tanstack/router-vite-plugin';
 
 export default defineConfig({
   resolve: {
@@ -18,6 +18,6 @@ export default defineConfig({
     react(),
     ViteEjsPlugin((viteConfig) => ({ ...viteConfig.env })),
     svgr(),
-    TanStackRouterVite({ semicolons: true }),
+    tanstackRouter({ semicolons: true }),
   ],
 });
