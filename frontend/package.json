@@ -8,7 +8,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "npm run lint:tsc && npm run lint:eslint",
+    "lint": "pnpm lint:tsc && pnpm lint:eslint",
     "lint:tsc": "tsc --noemit",
     "lint:eslint": "eslint './{src,cypress}/**/*.{ts,tsx}'",
     "prettier": "prettier --write './{src,cypress}/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",

@@ -9,12 +9,12 @@
     "start": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "npm run lint:tsc && npm run lint:eslint",
+    "lint": "pnpm lint:tsc && pnpm lint:eslint",
     "lint:tsc": "tsc --noemit",
     "lint:eslint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "typeorm": "ts-node --require tsconfig-paths/register ./node_modules/typeorm/cli --dataSource src/ormconfig.ts",
-    "typeorm-seeding": "ts-node --require tsconfig-paths/register ./node_modules/@jorgebodega/typeorm-seeding/dist/cli --dataSource src/ormconfig.ts",
-    "db:reset": "npm run typeorm schema:drop && npm run typeorm migration:run && npm run typeorm-seeding seed src/seeds/development.seeder.ts"
+    "typeorm": "ts-node --project ./tsconfig.json --require tsconfig-paths/register ./node_modules/typeorm/cli --dataSource src/ormconfig.ts",
+    "typeorm-seeding": "ts-node --project ./tsconfig.json --require tsconfig-paths/register ./node_modules/@jorgebodega/typeorm-seeding/dist/cli --dataSource src/ormconfig.ts",
+    "db:reset": "pnpm typeorm schema:drop && pnpm typeorm migration:run && pnpm typeorm-seeding seed src/seeds/development.seeder.ts"
   },
   "prettier": "@kiwikilian/prettier-config",
   "dependencies": {
