@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Cron } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import currency from 'currency.js';
@@ -10,15 +11,35 @@ import { And, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { BillingPeriod } from '@/billing-periods/entities/billing-period.entity';
 import { Salad } from '@/salads/entities/salad.entity';
 import { euro } from '@/setup/euro';
+import { EnvironmentVariables } from '@/types/EnvironmentVariables';
 
 const SALAD_GROCERY_COUNT_HOUR = 10;
 
 @Injectable()
 export class NotificationService {
+  private readonly logger = new Logger(NotificationService.name);
+
+  private readonly slackEnabled: boolean;
+
   constructor(
     private readonly slackService: SlackService,
+    configService: ConfigService<EnvironmentVariables>,
     @InjectRepository(Salad) private saladsRepository: Repository<Salad>,
-  ) {}
+  ) {
+    this.slackEnabled = !!configService.get('SLACK_CHANNEL') && !!configService.get('SLACK_WEBHOOK_URL');
+
+    if (!this.slackEnabled) {
+      this.logger.log('Slack notifications are disabled (SLACK_CHANNEL, SLACK_WEBHOOK_URL not set).');
+    }
+  }
+
+  private async send(...args: Parameters<SlackService['sendBlocks']>) {
+    if (!this.slackEnabled) {
+      return;
+    }
+
+    await this.slackService.sendBlocks(...args);
+  }
 
   private async getSaladsForWeek(date: Dayjs) {
     const monday = date.startOf('week');
@@ -40,7 +61,7 @@ export class NotificationService {
     const salads = await this.getSaladsForWeek(dayjs(salad.date));
 
     if (salads.length >= 1 && dayjs().isAfter(dayjs(`${salads[0].date} ${SALAD_GROCERY_COUNT_HOUR}:00`))) {
-      await this.slackService.sendBlocks(
+      await this.send(
         Message()
           .blocks(
             Blocks.Section().text(
@@ -55,7 +76,7 @@ export class NotificationService {
   }
 
   async saladRemoved(salad: Salad) {
-    await this.slackService.sendBlocks(
+    await this.send(
       Message()
         .blocks(
           Blocks.Section().text(
@@ -70,7 +91,7 @@ export class NotificationService {
 
   @Cron('0 8 * * 1')
   private async addSalads() {
-    await this.slackService.sendBlocks(
+    await this.send(
       Message()
         .blocks(
           Blocks.Section().text(
@@ -86,16 +107,14 @@ export class NotificationService {
     const salads = await this.getSaladsForWeek(dayjs());
 
     if (salads.length > 0 && salads[0].date === dayjs().format('YYYY-MM-DD')) {
-      await this.slackService.sendBlocks(
+      await this.send(
         Message()
           .blocks(Blocks.Section().text(`📋 Diese Woche werden ${Md.bold(salads.length.toString())} Salate gegessen.`))
           .getBlocks(),
       );
-      await this.slackService.sendBlocks(Message().blocks(Blocks.Section().text(`🛒 Wer geht einkaufen?`)).getBlocks());
-      await this.slackService.sendBlocks(Message().blocks(Blocks.Section().text(`🥚 Wer kocht Eier?`)).getBlocks());
-      await this.slackService.sendBlocks(
-        Message().blocks(Blocks.Section().text(`🌾 Wer kocht Getreide/Körner?`)).getBlocks(),
-      );
+      await this.send(Message().blocks(Blocks.Section().text(`🛒 Wer geht einkaufen?`)).getBlocks());
+      await this.send(Message().blocks(Blocks.Section().text(`🥚 Wer kocht Eier?`)).getBlocks());
+      await this.send(Message().blocks(Blocks.Section().text(`🌾 Wer kocht Getreide/Körner?`)).getBlocks());
     }
   }
 
@@ -109,7 +128,7 @@ export class NotificationService {
     });
 
     if (salads.length > 0) {
-      await this.slackService.sendBlocks(
+      await this.send(
         Message()
           .blocks(
             Blocks.Section().text(
@@ -155,7 +174,7 @@ export class NotificationService {
         `Bitte ${Md.bold(Md.link('https://salatschwestern.example.com/schwestern', 'gleicht eure Kontostände aus'))}.`,
       );
 
-      await this.slackService.sendBlocks(
+      await this.send(
         Message()
           .blocks(Blocks.Section().text(sentences.join(' ')))
           .getBlocks(),

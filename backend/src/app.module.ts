@@ -40,13 +40,13 @@ import { ValidationModule } from '@/validation/validation.module';
 
         CORS_ORIGIN: Joi.string().required(),
 
-        SLACK_CHANNEL: Joi.string().required(),
-        SLACK_WEBHOOK_URL: Joi.string().required(),
+        SLACK_CHANNEL: Joi.string(),
+        SLACK_WEBHOOK_URL: Joi.string(),
 
         SWAGGER_ENABLED: Joi.boolean().required(),
         SWAGGER_USERNAME: Joi.string(),
         SWAGGER_PASSWORD: Joi.string(),
-      }),
+      }).and('SLACK_CHANNEL', 'SLACK_WEBHOOK_URL'),
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
@@ -63,12 +63,12 @@ import { ValidationModule } from '@/validation/validation.module';
       inject: [ConfigService],
       isGlobal: true,
       useFactory: (configService: ConfigService<EnvironmentVariables>) => ({
-        defaultChannel: configService.get('SLACK_CHANNEL')!,
+        defaultChannel: configService.get('SLACK_CHANNEL') ?? '',
         type: 'webhook',
         channels: [
           {
-            name: configService.get('SLACK_CHANNEL')!,
-            url: configService.get('SLACK_WEBHOOK_URL')!,
+            name: configService.get('SLACK_CHANNEL') ?? '',
+            url: configService.get('SLACK_WEBHOOK_URL') ?? '',
           },
         ],
       }),
